@@ -24,6 +24,10 @@ module.exports = buildSchema(`
             token: String!
             tokenExpiration: Int!
             email: String!
+            status: Int!
+            statusCode: Int!
+            message: String!
+            
         }
 
         type Booking {
@@ -43,7 +47,6 @@ module.exports = buildSchema(`
             _id:ID!,
             categoryName:String!
         }
-
         input EventInput {
             title: String!
             description: String!
@@ -69,13 +72,13 @@ module.exports = buildSchema(`
             events: [Event!]!
             bookings: [Booking!]!
             login(email: String!, password: String!): AuthData!
-            getCategory:[CategoryFetch!]!
+            fetchCategory:[CategoryFetch!]!
             searchCategory(search:String!): [CategoryFetch!]!
         }
 
         type RootMutation {
             createEvent(eventInput: EventInput): Event
-            createUser(userInput: UserInput): AuthData!
+            userSignUp(userInput: UserInput): AuthData!
             createCategory(categoryInput: CategoryInput) :CategoryAdd!
             deleteEvent(eventId: ID!): Event!
             bookEvent(eventId: ID!): Booking!

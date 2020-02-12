@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 const enforce = require('express-sslify');
 const compression = require('compression');
 const graphqlHttp = require('express-graphql');
+const cors = require('cors')
 const mongoose = require('mongoose');
-
+const models = require('./models');
 const graphqlSchema = require('./graphql/schema/index.gql');
 const graphqlResolvers = require('./graphql/resolvers/index');
 const isAuth = require('./middleware/auth');
@@ -22,13 +23,25 @@ app.use(bodyParser.json());
 app.use(isAuth);
 
 app.use(
-    '/graphql', cors(), bodyParser.json(),
-    graphqlHttp({
-        schema: graphqlSchema,
-        rootValue: graphqlResolvers,
-        graphiql: true
-    })
+    '/graphql', cors(), bodyParser.json(), (req, res) => {
+        // console.log(req.headers)
+        graphqlHttp({
+            schema: graphqlSchema,
+            rootValue: graphqlResolvers,
+            graphiql: true,
+            context: { req }
+        })(req, res)
+    }
 );
+
+// app.use('/graphql', cors(), (req, res) => {
+//     graphqlHTTP({
+//         schema: ncSchema,
+//         graphiql: process.env.NODE_ENV === 'development',
+//         context: { pgPool, req }
+//     })(req, res)
+// })
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");

@@ -13,7 +13,7 @@ module.exports = {
                 categoryName: args.categoryInput.categoryName,
             });
             const result = await category.save();
-            ashedPassword = await bcrypt.hash(args.userInput.password, 12);
+            // ashedPassword = await bcrypt.hash(args.userInput.password, 12);
             return { _id: result._id, categoryName: result.categoryName, };
         } catch (err) {
             if (err['code'] == 11000) {

@@ -5,8 +5,9 @@ const User = require('../../models/user');
 const { JWT_SECRET } = require('../../helpers/constants');
 
 module.exports = {
-    createUser: async args => {
+    createUser: async (args,context) => {
         try {
+            console.log(context.req.headers)
             const userExist = await User.findOne({ email: args.userInput.email });
             // const userExist = await User.findOne({ name: args.userInput.name });
             if (userExist) {
@@ -42,8 +43,6 @@ module.exports = {
                 throw new Error('Password is incorrect!');
             }
             const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
-
-            //tokenExpiration in minutes
             return { userId: user._id, token: token, tokenExpiration: 60, email: user.email };
         } catch (err) {
             throw err;

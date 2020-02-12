@@ -1,12 +1,18 @@
 const auth = require('./auth');
+const userResolver = require('./authenticationResolver/signupResolver');
+const loginResolver = require('./authenticationResolver/loginResolver');
+const categoryResolver = require('./categoryResolver/categoryResolver');
 const events = require('./events');
 const bookings = require('./bookings');
-const categorys = require('./category')
+// const categorys = require('./category')
 
 const rootResolver = {
-    ...auth,
+    // ...auth,
+    ...userResolver,
+    ...loginResolver,
+    ...categoryResolver,
     ...events,
     ...bookings,
-    ...categorys
+    // ...categorys
 };
 module.exports = rootResolver;
