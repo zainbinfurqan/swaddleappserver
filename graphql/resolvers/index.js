@@ -1,7 +1,9 @@
 const auth = require('./auth');
-const userResolver = require('./authenticationResolver/signupResolver');
+const authResolver = require('./authenticationResolver/signupResolver');
+const userResolver = require('./user/userResolver');
 const loginResolver = require('./authenticationResolver/loginResolver');
 const categoryResolver = require('./categoryResolver/categoryResolver');
+const messageResolver = require('./messageResolver/messageResolver')
 const searchResolver = require('./searchResolver/searchResolver');
 const events = require('./events');
 const bookings = require('./bookings');
@@ -9,12 +11,13 @@ const bookings = require('./bookings');
 
 const rootResolver = {
     // ...auth,
-    ...userResolver,
+    ...authResolver,
     ...loginResolver,
     ...categoryResolver,
     ...events,
     ...bookings,
-    ...searchResolver
-    // ...categorys
+    ...searchResolver,
+    ...messageResolver,
+    ...userResolver
 };
 module.exports = rootResolver;

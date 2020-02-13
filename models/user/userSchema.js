@@ -29,6 +29,18 @@ const userSchema = new Schema({
         type: Number,
         required: true
     },
+    education: {
+        type: String,
+    },
+    experience: {
+        type: String,
+    },
+    qualifications: {
+        type: String,
+    },
+    subSpecialties: {
+        type: String,
+    },
 }, { runSettersOnQuery: true });
 
 module.exports = mongoose.model('User', userSchema);

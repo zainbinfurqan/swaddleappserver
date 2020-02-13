@@ -25,8 +25,11 @@ exports.searchCategory = async (args, context) => {
         }
         const categoryData = await categoryModel.find(params.query);
         console.log(categoryData)
-        return categoryData
-        // return categoryData.map(categoryData => transformCategory(categoryData)).reverse();
+        if (categoryData) {
+            return categoryData
+        } else {
+            return categoryData
+        }
     } catch (err) {
         throw err
     }
