@@ -2,13 +2,12 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../helpers/constants');
 
 
-let generateToken = (JWT_object, expiry) => {
+let generateToken = async (JWT_object, expiry) => {
     return jwt.sign(
         JWT_object
         ,
         JWT_SECRET,
         {
-            expiresIn: expiry,
             issuer: 'swaddle'
         });
 }

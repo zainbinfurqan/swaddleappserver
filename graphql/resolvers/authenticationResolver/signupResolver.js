@@ -2,9 +2,11 @@
 
 let User = require('../../../models/user/userSchema'),
     genericFunctions = require('../../../helpers/util-genricfunctions'),
+    cacheModel = require('../../../models/cache/cacheSchema'),
     bcrypt = require('bcryptjs'),
     jwt = require('jsonwebtoken'),
-    { JWT_SECRET } = require('../../../helpers/constants');
+    { JWT_SECRET } = require('../../../helpers/constants'),
+    jtwToken = require('../../../helpers/jwt-helper');
 
 
 
@@ -38,7 +40,13 @@ exports.userSignUp = async (args, context) => {
                 return { status: false, statusCode: 203, message: 'user already exist', userId: '', email: '', token: '' }
             return { status: false, statusCode: 203, message: user.error, userId: '', email: '', token: '' }
         }
-        const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+        let obj = {
+            userId: user.data._id,
+            email: user.data.email
+        }
+        const token = await jtwToken._generateToekn(obj, '60');
+        let jwtToken_ = await genericFunctions._basePost(cacheModel, { value: { key: token } })
+        // const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
         return { status: true, statusCode: 200, message: "User Created", userId: user._id, email: user.email, token }
     }
     else {

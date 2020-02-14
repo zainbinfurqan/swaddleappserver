@@ -29,6 +29,11 @@ module.exports = buildSchema(`
             statusCode: Int!
             message : String!
         }
+        type CreatePractioner{
+            status: Boolean!
+            statusCode: Int!
+            message : String!
+        }
 
         type AuthData {
             userId: ID!
@@ -94,6 +99,19 @@ module.exports = buildSchema(`
             subSpecialties: String!
         }
 
+        input CreatePractionerInput{
+            userId:String!
+            address: String!
+            bio: String!
+            website: String!
+            rate: String!
+            feeDetails: String!
+            certification: [String]!
+            training: [String]!
+            education: [String]!
+            specialServicesOffer: String!
+        }
+
         input CategoryInput {
             categoryName: String!
         }
@@ -116,6 +134,7 @@ module.exports = buildSchema(`
             deleteEvent(eventId: ID!): Event!
             bookEvent(eventId: ID!): Booking!
             cancelBooking(bookingId: ID!): Event!
+            createPactionerProfile(createPractionerInput:CreatePractionerInput) :CreatePractioner!
         }
 
         schema {
