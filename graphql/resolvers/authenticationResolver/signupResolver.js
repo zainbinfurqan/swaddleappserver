@@ -47,7 +47,7 @@ exports.userSignUp = async (args, context) => {
         const token = await jtwToken._generateToekn(obj, '60');
         let jwtToken_ = await genericFunctions._basePost(cacheModel, { value: { key: token } })
         // const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
-        return { status: true, statusCode: 200, message: "User Created", userId: user._id, email: user.email, token }
+        return { status: true, statusCode: 200, message: "User Created", userId: user.data._id, email: user.data.email, token }
     }
     else {
         return { status: false, statusCode: 203, message: "please fill all the fields", userId: '', email: '', token: '' }
