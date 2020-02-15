@@ -34,10 +34,10 @@ exports.login = async ({ email, password }) => {
                     token
                 }
             }
-            return { status: false, statusCode: 203, message: "invalid email or password", userId: '', email: '', token: '' }
+            return { status: false, statusCode: 203, message: "invalid email or password",fullName:"", userId: '', email: '', token: '' }
         }
         else {
-            return { status: false, statusCode: 203, message: "invalid email or password", userId: '', email: '', token: '' }
+            return { status: false, statusCode: 203, message: "invalid email or password",fullName:"", userId: '', email: '', token: '' }
         }
     } else {
         return { status: false, statusCode: 203, message: "please fill all the fields", userId: '', email: '', token: '' }

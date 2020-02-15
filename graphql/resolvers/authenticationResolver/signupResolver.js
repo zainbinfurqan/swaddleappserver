@@ -57,7 +57,7 @@ exports.userSignUp = async (args, context) => {
         }
     }
     else {
-        return { status: false, statusCode: 203, message: "please fill all the fields", userId: '', email: '', token: '' }
+        return { status: false, statusCode: 203, message: "please fill all the fields",fullName:"", userId: '', email: '', token: '' }
 
     }
 
