@@ -40,6 +40,7 @@ module.exports = buildSchema(`
             token: String!
             tokenExpiration: Int!
             email: String!
+            fullName:String!
             status: Int!
             statusCode: Int!
             message: String!
