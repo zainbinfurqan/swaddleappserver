@@ -37,8 +37,8 @@ exports.userSignUp = async (args, context) => {
         let user = await genericFunctions._basePost(User, arg);
         if (!user.status) {
             if (user.error['code'] == 11000)
-                return { status: false, statusCode: 203, message: 'user already exist', userId: '', email: '', token: '' }
-            return { status: false, statusCode: 203, message: user.error, userId: '', email: '', token: '' }
+                return { status: false, statusCode: 203, message: 'user already exist',fullName:"", userId: '', email: '', token: '' }
+            return { status: false, statusCode: 203, message: user.error,fullName:"", userId: '', email: '', token: '' }
         }
         let obj = {
             userId: user.data._id,
