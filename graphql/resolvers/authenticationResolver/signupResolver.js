@@ -52,7 +52,7 @@ exports.userSignUp = async (args, context) => {
             message: "User Created",
             userId: user.data._id,
             email: user.data.email,
-            fullName: user.data.firstName +' '+ login.data.lastName,
+            fullName: user.data.firstName +' '+ user.data.lastName,
             token
         }
     }

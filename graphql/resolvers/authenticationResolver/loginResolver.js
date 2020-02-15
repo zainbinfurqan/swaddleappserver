@@ -19,18 +19,19 @@ let User = require('../../../models/user/userSchema'),
 
 exports.login = async ({ email, password }) => {
     if (email && password) {
-        let login = await genericFunctions._baseFetch(User, { query: { email } }, 'FindOne')
-        if (login.data) {
-            const isEqual = await bcrypt.compare(password, login.data.password);
+        let login_ = await genericFunctions._baseFetch(User, { query: { email } }, 'FindOne')
+        console.log(login_)
+        if (login_.data) {
+            const isEqual = await bcrypt.compare(password, login_.data.password);
             if (isEqual) {
-                const token = jwt.sign({ userId: login.data._id, email: login.data.email }, JWT_SECRET, { expiresIn: '1h' });
+                const token = jwt.sign({ userId: login_.data._id, email: login_.data.email }, JWT_SECRET, { expiresIn: '1h' });
                 return {
                     status: true,
                     statusCode: 200,
                     message: "Login Successfully",
-                    userId: login.data._id,
-                    email: login.data.email,
-                    fullName: login.data.firstName +' '+ login.data.lastName,
+                    userId: login_.data._id,
+                    email: login_.data.email,
+                    fullName: login_.data.firstName +' '+ login_.data.lastName,
                     token
                 }
             }
