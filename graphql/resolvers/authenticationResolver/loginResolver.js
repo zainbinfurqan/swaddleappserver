@@ -24,7 +24,7 @@ exports.login = async ({ email, password }) => {
             const isEqual = await bcrypt.compare(password, login.data.password);
             if (isEqual) {
                 const token = jwt.sign({ userId: login.data._id, email: login.data.email }, JWT_SECRET, { expiresIn: '1h' });
-                return { status: true, statusCode: 200, message: "Login Successfully", userId: login._id, email: login.email, token }
+                return { status: true, statusCode: 200, message: "Login Successfully", userId: login.data._id, email: login.data.email, token }
             }
             return { status: false, statusCode: 203, message: "invalid email or password", userId: '', email: '', token: '' }
         }
