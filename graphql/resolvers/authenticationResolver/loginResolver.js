@@ -40,7 +40,7 @@ exports.login = async ({ email, password }) => {
             return { status: false, statusCode: 203, message: "invalid email or password",fullName:"", userId: '', email: '', token: '' }
         }
     } else {
-        return { status: false, statusCode: 203, message: "please fill all the fields", userId: '', email: '', token: '' }
+        return { status: false, statusCode: 203, message: "please fill all the fields",fullName:"", userId: '', email: '', token: '' }
     }
 }
 
