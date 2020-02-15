@@ -30,7 +30,7 @@ exports.login = async ({ email, password }) => {
                     message: "Login Successfully",
                     userId: login.data._id,
                     email: login.data.email,
-                    fullName: login.data.firstName + login.data.firstName,
+                    fullName: login.data.firstName + + login.data.lastName,
                     token
                 }
             }
