@@ -50,6 +50,7 @@ const dbFindWithCount = async (model, args) => {
 };
 
 const dbAggregate = async (model, args) => (
+    // console.log(model,args.query)
     await model.aggregate(args.query)
         .then((data) => ({
             status: true,

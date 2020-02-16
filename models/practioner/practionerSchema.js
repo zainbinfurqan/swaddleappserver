@@ -20,23 +20,35 @@ const practionerSchema = new Schema({
         type: Object,
 
     },
-    website:{
-        type:String,
-        required:true
+    website: {
+        type: String,
+        required: true
     },
-    rate:{
-        type:String,
-        required:true,
+    profilePic: {
+
     },
-    feeDetails:{
-        type:String,
-        required:true
+    rate: {
+        type: String,
+        required: true,
     },
-    certification:[],
-    training:[],
-    education:[],
-    specialServicesOffer:{
-        type:String,
+    feeDetails: {
+        type: String,
+        required: true
+    },
+    categoryId: {
+        type: ObjectId,
+        required: true
+    },
+    isDelete: {
+        type: Boolean,
+        default: false
+    },
+    certification: [],
+    profession: [],
+    training: [],
+    education: [],
+    specialServicesOffer: {
+        type: String,
     }
     // education: {
     //     type: String,

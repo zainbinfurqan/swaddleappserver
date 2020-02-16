@@ -10,27 +10,48 @@ let practionerSchema = require('../../../models/practioner/practionerSchema'),
 
 exports.fetchPactioner = async (args, context) => {
 
+    console.log(args.categoryId)
+    let matchObj = {}
+    if (args.categoryId)
+        matchObj['categoryId'] = mongoose.Types.ObjectId(args.categoryId)
+
+    let arg = {
+        query: { ...matchObj, isDelete: false }
+    }
+    let practionerData = await genericFunctions._baseFetch(practionerSchema, arg)
+    // let practionerData = await genericFunctions._baseFetch(practionerSchema,
+    //     { query: {}, parameterToGet: '_id' })
+    console.log(practionerData, "s");
+    return { _id: "" }
+
+
 }
 
 
 exports.createPactionerProfile = async (args, context) => {
 
     console.log(args)
+
     let arg = {
         userId: mongoose.Types.ObjectId(args.createPractionerInput.userId),
-        address:args.createPractionerInput.address,
-        bio:args.createPractionerInput.bio,
-        website:args.createPractionerInput.website,
-        rate:args.createPractionerInput.rate,
-        feeDetails:args.createPractionerInput.feeDetails,
-        certification:args.createPractionerInput.certification,
-        training:args.createPractionerInput.training,
-        education:args.createPractionerInput.education,
-        specialServicesOffer:args.createPractionerInput.specialServicesOffer,
+        address: args.createPractionerInput.address,
+        categoryId: mongoose.Types.ObjectId(args.createPractionerInput.categoryId),
+        bio: args.createPractionerInput.bio,
+        website: args.createPractionerInput.website,
+        rate: args.createPractionerInput.rate,
+        feeDetails: args.createPractionerInput.feeDetails,
+        certification: args.createPractionerInput.certification,
+        training: args.createPractionerInput.training,
+        education: args.createPractionerInput.education,
+        specialServicesOffer: args.createPractionerInput.specialServicesOffer,
+        profession: args.createPractionerInput.profession,
     }
-    let practioner = await genericFunctions._basePost(practionerSchema,arg)
+    let practioner = await genericFunctions._basePost(practionerSchema, arg)
     console.log(practioner)
-    return { status: false, statusCode: 200, message: 's' }
+    if (!practioner.status) {
+        return { status: false, statusCode: 203, message: practioner.error }
+    }
+    return { status: true, statusCode: 200, message: 'Profile Updated' }
 
 }
 

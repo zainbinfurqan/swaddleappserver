@@ -64,6 +64,10 @@ module.exports = buildSchema(`
             categoryName:String!
         }
 
+        type PractionerFetch{
+            _id:ID
+        }
+
         type MessageData{
             status: Boolean!
             statusCode: Int!
@@ -111,6 +115,7 @@ module.exports = buildSchema(`
             training: [String]!
             education: [String]!
             specialServicesOffer: String!
+            profession:[String]!
         }
 
         input CategoryInput {
@@ -123,6 +128,7 @@ module.exports = buildSchema(`
             bookings: [Booking!]!
             login(email: String!, password: String!): AuthData!
             fetchCategory:[CategoryFetch!]!
+            fetchPactioner(categoryId:String):PractionerFetch
             searchCategory(search:String!): [CategoryFetch!]!
         }
 
