@@ -65,7 +65,18 @@ module.exports = buildSchema(`
         }
 
         type PractionerFetch{
-            _id:ID
+            userId:String!
+            address: String!
+            bio: String!
+            website: String!
+            rate: String!
+            feeDetails: String!
+            certification: [String]!
+            training: [String]!
+            education: [String]!
+            specialServicesOffer: String!
+            profession:[String]!
+            profilePic:[String]!
         }
 
         type MessageData{
@@ -128,7 +139,7 @@ module.exports = buildSchema(`
             bookings: [Booking!]!
             login(email: String!, password: String!): AuthData!
             fetchCategory:[CategoryFetch!]!
-            fetchPactioner(categoryId:String):PractionerFetch
+            fetchPactioner(categoryId:String):[PractionerFetch]
             searchCategory(search:String!): [CategoryFetch!]!
         }
 

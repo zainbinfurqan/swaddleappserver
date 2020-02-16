@@ -16,17 +16,12 @@ const practionerSchema = new Schema({
         type: String,
         required: true
     },
-    profileImage: {
-        type: Object,
-
-    },
+    
     website: {
         type: String,
         required: true
     },
-    profilePic: {
-
-    },
+    
     rate: {
         type: String,
         required: true,
@@ -47,6 +42,7 @@ const practionerSchema = new Schema({
     profession: [],
     training: [],
     education: [],
+    profilePic: [],
     specialServicesOffer: {
         type: String,
     }

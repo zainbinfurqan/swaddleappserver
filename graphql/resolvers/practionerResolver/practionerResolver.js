@@ -16,13 +16,20 @@ exports.fetchPactioner = async (args, context) => {
         matchObj['categoryId'] = mongoose.Types.ObjectId(args.categoryId)
 
     let arg = {
-        query: { ...matchObj, isDelete: false }
+        query: { ...matchObj }
     }
     let practionerData = await genericFunctions._baseFetch(practionerSchema, arg)
     // let practionerData = await genericFunctions._baseFetch(practionerSchema,
     //     { query: {}, parameterToGet: '_id' })
     console.log(practionerData, "s");
-    return { _id: "" }
+    // let returnObj = {
+    //     // data: practionerData.data,
+    //     status: true,
+    //     statusCode: 200,
+    //     message: 'data Found'
+    // }
+    return practionerData.data
+
 
 
 }
@@ -47,7 +54,6 @@ exports.createPactionerProfile = async (args, context) => {
         profession: args.createPractionerInput.profession,
     }
     let practioner = await genericFunctions._basePost(practionerSchema, arg)
-    console.log(practioner)
     if (!practioner.status) {
         return { status: false, statusCode: 203, message: practioner.error }
     }
