@@ -33,6 +33,9 @@ app.use(
         })(req, res)
     }
 );
+app.use('/',(req,res)=>{
+    res.send({message:"server is running"})
+})
 
 // app.use('/graphql', cors(), (req, res) => {
 //     graphqlHTTP({

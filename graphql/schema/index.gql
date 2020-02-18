@@ -79,7 +79,18 @@ module.exports = buildSchema(`
             profilePic:[String]!
         }
 
-        type MessageData{
+        type MessageListForUser{
+            text:String!
+        }
+
+        type GetMessageList{
+            firstName : String!
+            lastName : String!
+            sendFrom : String!
+            sendTo : String!
+        }
+
+        type InsertMessageData{
             status: Boolean!
             statusCode: Int!
             message: String!
@@ -127,6 +138,7 @@ module.exports = buildSchema(`
             education: [String]!
             specialServicesOffer: String!
             profession:[String]!
+            categoryId:String!
         }
 
         input CategoryInput {
@@ -141,6 +153,8 @@ module.exports = buildSchema(`
             fetchCategory:[CategoryFetch!]!
             fetchPactioner(categoryId:String):[PractionerFetch]
             searchCategory(search:String!): [CategoryFetch!]!
+            getMessageList(practionerId:String!): [GetMessageList]
+            getparticularUserMessageList(practionerId: String!, userId:String!) : [MessageListForUser]
         }
 
         type RootMutation {
@@ -148,7 +162,7 @@ module.exports = buildSchema(`
             userSignUp(userInput: UserInput): AuthData!
             updateUser(updateUserInput:UpdateUserInput):UpdateUser!
             createCategory(categoryInput: CategoryInput) :CategoryAdd!
-            sendIndividualMessage(messageInput: MessageInput) :MessageData!
+            sendIndividualMessage(messageInput: MessageInput) :InsertMessageData!
             deleteEvent(eventId: ID!): Event!
             bookEvent(eventId: ID!): Booking!
             cancelBooking(bookingId: ID!): Event!
