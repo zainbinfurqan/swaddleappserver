@@ -16,18 +16,43 @@ exports.fetchPactioner = async (args, context) => {
         matchObj['categoryId'] = mongoose.Types.ObjectId(args.categoryId)
 
     let arg = {
-        query: { ...matchObj }
+        query: [
+            {
+                $match: { ...matchObj },
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "userId",
+                    foreignField: "_id",
+                    as: "userData"
+                }
+            },
+            { $unwind: "$userData" },
+            {
+                $project: {
+                    address:1,
+                    categoryId:1,
+                    bio:1,
+                    website:1,
+                    rate:1,
+                    feeDetails:1,
+                    certification:1,
+                    training:1,
+                    education:1,
+                    specialServicesOffer:1,
+                    profession:1,
+                    userId:1,
+                    // userId_: "$userData._id",
+                    firstName: "$userData.firstName",
+                    lastName: "$userData.lastName"
+                }
+            }
+        ]
+        
     }
-    let practionerData = await genericFunctions._baseFetch(practionerSchema, arg)
-    // let practionerData = await genericFunctions._baseFetch(practionerSchema,
-    //     { query: {}, parameterToGet: '_id' })
+    let practionerData = await genericFunctions._baseFetch(practionerSchema, arg,"Aggregate")
     console.log(practionerData, "s");
-    // let returnObj = {
-    //     // data: practionerData.data,
-    //     status: true,
-    //     statusCode: 200,
-    //     message: 'data Found'
-    // }
     return practionerData.data
 
 
@@ -38,6 +63,8 @@ exports.fetchPactioner = async (args, context) => {
 exports.createPactionerProfile = async (args, context) => {
 
     console.log(args)
+    
+
 
     let arg = {
         userId: mongoose.Types.ObjectId(args.createPractionerInput.userId),
@@ -53,6 +80,7 @@ exports.createPactionerProfile = async (args, context) => {
         specialServicesOffer: args.createPractionerInput.specialServicesOffer,
         profession: args.createPractionerInput.profession,
     }
+
     let practioner = await genericFunctions._basePost(practionerSchema, arg)
     if (!practioner.status) {
         return { status: false, statusCode: 203, message: practioner.error }

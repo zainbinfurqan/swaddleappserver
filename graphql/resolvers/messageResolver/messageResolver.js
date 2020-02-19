@@ -51,7 +51,7 @@ exports.sendIndividualMessage = async (args, context) => {
 
 exports.getMessageList = async (args, context) => {
 
-    if (args.practionerId) {
+    if (args.loginUserId) {
         let matchObj = {};
         matchObj['sendTo'] = mongoose.Types.ObjectId(args.practionerId);
         let arg = {

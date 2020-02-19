@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 const individualMessageSchema = new Schema({
-    sendTo: {
+    userId: {
         type: ObjectId,
         required: true
     },
-    sendFrom: {
+    practionerId: {
         type: ObjectId,
         required: true
     },

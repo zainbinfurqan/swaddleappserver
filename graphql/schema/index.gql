@@ -9,6 +9,12 @@ module.exports = buildSchema(`
             date: String!
             creator: User!
         }
+        
+        type Response {
+            statusCode:Int!
+            status:Boolean!
+            message:String!
+        }
 
         type User {
             _id: ID!
@@ -76,7 +82,8 @@ module.exports = buildSchema(`
             education: [String]!
             specialServicesOffer: String!
             profession:[String]!
-            profilePic:[String]!
+            firstName:String!
+            lastName:String!
         }
 
         type MessageListForUser{
@@ -155,7 +162,7 @@ module.exports = buildSchema(`
             fetchCategory:[CategoryFetch!]!
             fetchPactioner(categoryId:String):[PractionerFetch]
             searchCategory(search:String!): [CategoryFetch!]!
-            getMessageList(practionerId:String!): [GetMessageList]
+            getMessageList(loginUserId:String!): [GetMessageList]
             getparticularUserMessageList(practionerId: String!, userId:String!) : [MessageListForUser]
         }
 
