@@ -70,6 +70,18 @@ module.exports = buildSchema(`
             categoryName:String!
         }
 
+        type AddAppointment {
+            status:Boolean!
+            statusCode:Int!
+            message:String!
+        }
+
+        type BookAppointment{
+             status:Boolean!
+            statusCode:Int!
+            message:String!
+        }
+
         type PractionerFetch{
             userId:String!
             address: String!
@@ -154,6 +166,20 @@ module.exports = buildSchema(`
             categoryName: String!
         }
 
+        input AddAppointmentInputs{
+            day:String!
+            date:String!
+            practionerId:String!
+            time:[String!]!
+        }
+
+        input BookAppointmentInputs{
+            day:String!
+            date:String!
+            practionerId:String!
+            userId: String!
+            time:String!
+        }
 
         type RootQuery {
             events: [Event!]!
@@ -176,6 +202,8 @@ module.exports = buildSchema(`
             bookEvent(eventId: ID!): Booking!
             cancelBooking(bookingId: ID!): Event!
             createPactionerProfile(createPractionerInput:CreatePractionerInput) :CreatePractioner!
+            creatAppointmentData(addAppointmentInputs:AddAppointmentInputs) : AddAppointment!
+            bookAppointment(bookAppointmentInputs:BookAppointmentInputs) : BookAppointment!
         }
 
         schema {

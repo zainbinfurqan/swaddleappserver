@@ -6,6 +6,7 @@ const categoryResolver = require('./categoryResolver/categoryResolver');
 const messageResolver = require('./messageResolver/messageResolver')
 const searchResolver = require('./searchResolver/searchResolver');
 const practionerResolver =  require('./practionerResolver/practionerResolver')
+const creatAppointmentData =  require('./appointment/appointment')
 const events = require('./events');
 const bookings = require('./bookings');
 // const categorys = require('./category')
@@ -20,6 +21,7 @@ const rootResolver = {
     ...searchResolver,
     ...messageResolver,
     ...userResolver,
-    ...practionerResolver
+    ...practionerResolver,
+    ...creatAppointmentData
 };
 module.exports = rootResolver;
