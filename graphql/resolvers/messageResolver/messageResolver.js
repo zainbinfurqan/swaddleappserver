@@ -91,6 +91,7 @@ exports.getparticularUserMessageList = async (args, context) => {
         let matchObj = {};
         matchObj['sendTo'] = mongoose.Types.ObjectId(args.practionerId);
         matchObj['sendFrom'] = mongoose.Types.ObjectId(args.userId);
+        console.log(matchObj)
         let arg = {
             query: [
                 {
@@ -104,26 +105,28 @@ exports.getparticularUserMessageList = async (args, context) => {
                         as: "userData"
                     }
                 },
-                // { $unwind: "$userData" },
+                { $unwind: "$userData" },
                 // {
                 //     $lookup: {
                 //         from: "practionerschemas",
                 //         localField: "sendTo",
-                //         foreignField: "_id",
+                //         foreignField: "userData.userId",
                 //         as: "practionarData"
                 //     }
                 // },
                 // { $unwind: "$practionarData" },
                 {
                     $project: {
-                        text: 1
+                        text: 1,
+                        sendingTime: 1,
+                        userId: "$userData._id"
                     }
                 }
             ],
         }
-        let messageList = await genericFunctions._baseFetch(Message, arg, "Aggregate")
-        console.log(messageList)
-        return messageList.data
+        let messageList_ = await genericFunctions._baseFetch(Message, arg, "Aggregate")
+        console.log(messageList_)
+        return messageList_.data
     }
 
 
