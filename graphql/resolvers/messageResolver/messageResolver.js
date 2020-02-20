@@ -16,7 +16,6 @@ exports.sendIndividualMessage = async (args, context) => {
 
 
     if (args.messageInput.sendTo && args.messageInput.sendFrom && args.messageInput.text) {
-        console.log(args.messageInput.sendFrom)
 
         let Obj = {};
         let Obj_ = {};
@@ -40,18 +39,11 @@ exports.sendIndividualMessage = async (args, context) => {
                 ...Obj
             }
         }
-        console.log(arg.query)
         let messageData = await genericFunctions._basePost(Message, arg.query)
         if (!messageData.status)
             return { status: false, statusCode: 203, message: messageData.error }
         if (messageData.data) {
-            console.log(Obj)
-            // let = matchObj_ = {
-            //     ...Obj
-            // }
-            // console.log(matchObj_)
             let addMessageList = await genericFunctions._baseFetch(messagelistSchema, { query: Obj_ }, 'FindOne');
-            console.log(addMessageList)
             if (addMessageList.data) {
                 return { status: true, statusCode: 200, message: "Message Send" }
             } else {
