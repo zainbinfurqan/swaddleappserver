@@ -102,7 +102,8 @@ exports.getMessageList = async (args, context) => {
 exports.getparticularUserMessageList = async (args, context) => {
 
     console.log(args.practionerId, args.userId)
-    if (args.practionerId, args.userId) {
+    if (args.practionerId &&  args.userId) {
+        
         let matchObj = {};
         matchObj['sendTo'] = mongoose.Types.ObjectId(args.practionerId);
         matchObj['sendFrom'] = mongoose.Types.ObjectId(args.userId);
