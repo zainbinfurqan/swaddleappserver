@@ -6,7 +6,8 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 const practionerSchema = new Schema({
     userId: {
         type: ObjectId,
-        required: true
+        required: true,
+        unique:true
     },
     address: {
         type: String,

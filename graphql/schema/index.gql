@@ -121,6 +121,7 @@ module.exports = buildSchema(`
             sendTo:String!
             sendFrom:String!
             text:String!
+            role :String!
         }
         
         input EventInput {

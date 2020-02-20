@@ -17,18 +17,40 @@ exports.sendIndividualMessage = async (args, context) => {
 
     if (args.messageInput.sendTo && args.messageInput.sendFrom && args.messageInput.text) {
         console.log(args.messageInput.sendFrom)
+
+        let Obj = {};
+        let Obj_ = {};
+        if (args.messageInput.role == "patient") {
+            Obj['userId'] = mongoose.Types.ObjectId(args.messageInput.sendFrom);
+            Obj['practionerId'] = mongoose.Types.ObjectId(args.messageInput.sendTo);
+            Obj_['sendFrom'] = mongoose.Types.ObjectId(args.messageInput.sendFrom);
+            Obj_['sendTo'] = mongoose.Types.ObjectId(args.messageInput.sendTo);
+        }
+        if (args.messageInput.role == "practioner") {
+            Obj['userId'] = mongoose.Types.ObjectId(args.messageInput.sendTo)
+            Obj['practionerId'] = mongoose.Types.ObjectId(args.messageInput.sendFrom)
+            Obj_['sendFrom'] = mongoose.Types.ObjectId(args.messageInput.sendFrom);
+            Obj_['sendTo'] = mongoose.Types.ObjectId(args.messageInput.sendTo);
+        }
         let arg = {
             query: {
-                sendTo: mongoose.Types.ObjectId(args.messageInput.sendTo),
-                sendFrom: mongoose.Types.ObjectId(args.messageInput.sendFrom),
-                text: args.messageInput.text
+                // sendTo: mongoose.Types.ObjectId(args.messageInput.sendTo),
+                // sendFrom: mongoose.Types.ObjectId(args.messageInput.sendFrom),
+                text: args.messageInput.text,
+                ...Obj
             }
         }
+        console.log(arg.query)
         let messageData = await genericFunctions._basePost(Message, arg.query)
         if (!messageData.status)
             return { status: false, statusCode: 203, message: messageData.error }
         if (messageData.data) {
-            let addMessageList = await genericFunctions._baseFetch(messagelistSchema, { query: { sendFrom: mongoose.Types.ObjectId(args.messageInput.sendFrom) } }, 'FindOne');
+            console.log(Obj)
+            // let = matchObj_ = {
+            //     ...Obj
+            // }
+            // console.log(matchObj_)
+            let addMessageList = await genericFunctions._baseFetch(messagelistSchema, { query: Obj_ }, 'FindOne');
             console.log(addMessageList)
             if (addMessageList.data) {
                 return { status: true, statusCode: 200, message: "Message Send" }
@@ -41,7 +63,6 @@ exports.sendIndividualMessage = async (args, context) => {
             }
         }
         return { status: false, statusCode: 203, message: "Message Not Send" }
-
     }
     else {
         return { status: false, statusCode: 203, message: "please fill all the fields" }
@@ -52,8 +73,9 @@ exports.sendIndividualMessage = async (args, context) => {
 exports.getMessageList = async (args, context) => {
 
     if (args.loginUserId) {
+        console.log(args.loginUserId)
         let matchObj = {};
-        matchObj['sendTo'] = mongoose.Types.ObjectId(args.practionerId);
+        matchObj['sendTo'] = mongoose.Types.ObjectId(args.loginUserId);
         let arg = {
             query: [
                 {
@@ -80,6 +102,7 @@ exports.getMessageList = async (args, context) => {
             ],
         }
         let messageList = await genericFunctions._baseFetch(messagelistSchema, arg, "Aggregate")
+        console.log(messageList)
         return messageList.data
     }
 }
