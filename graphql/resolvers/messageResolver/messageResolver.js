@@ -36,18 +36,22 @@ exports.sendIndividualMessage = async (args, context) => {
                 // sendTo: mongoose.Types.ObjectId(args.messageInput.sendTo),
                 // sendFrom: mongoose.Types.ObjectId(args.messageInput.sendFrom),
                 text: args.messageInput.text,
-                ...Obj
+                ...Obj,
+                ...Obj_
             }
         }
+        console.log(arg)
         let messageData = await genericFunctions._basePost(Message, arg.query)
         if (!messageData.status)
             return { status: false, statusCode: 203, message: messageData.error }
         if (messageData.data) {
             let addMessageList = await genericFunctions._baseFetch(messagelistSchema, { query: Obj_ }, 'FindOne');
+            console.log(addMessageList)
             if (addMessageList.data) {
                 return { status: true, statusCode: 200, message: "Message Send" }
             } else {
                 let addMessageList = await genericFunctions._basePost(messagelistSchema, arg.query)
+                console.log(addMessageList)
                 if (!addMessageList.status) {
                     return { status: false, statusCode: 203, message: "Message Not Send" }
                 }
@@ -102,26 +106,26 @@ exports.getMessageList = async (args, context) => {
 exports.getparticularUserMessageList = async (args, context) => {
 
     console.log(args.practionerId, args.userId)
-    if (args.practionerId &&  args.userId) {
-        
+    if (args.practionerId && args.userId) {
+
         let matchObj = {};
-        matchObj['sendTo'] = mongoose.Types.ObjectId(args.practionerId);
-        matchObj['sendFrom'] = mongoose.Types.ObjectId(args.userId);
+        matchObj['practionerId'] = mongoose.Types.ObjectId(args.practionerId);
+        matchObj['userId'] = mongoose.Types.ObjectId(args.userId);
         console.log(matchObj)
         let arg = {
             query: [
                 {
                     $match: { ...matchObj },
                 },
-                {
-                    $lookup: {
-                        from: "users",
-                        localField: "sendFrom",
-                        foreignField: "_id",
-                        as: "userData"
-                    }
-                },
-                { $unwind: "$userData" },
+                // {
+                //     $lookup: {
+                //         from: "users",
+                //         localField: "sendFrom",
+                //         foreignField: "_id",
+                //         as: "userData"
+                //     }
+                // },
+                // { $unwind: "$userData" },
                 // {
                 //     $lookup: {
                 //         from: "practionerschemas",
@@ -131,15 +135,16 @@ exports.getparticularUserMessageList = async (args, context) => {
                 //     }
                 // },
                 // { $unwind: "$practionarData" },
-                {
-                    $project: {
-                        text: 1,
-                        sendingTime: 1,
-                        userId: "$userData._id"
-                    }
-                }
+                // {
+                //     $project: {
+                //         text: 1,
+                //         sendingTime: 1,
+                //         userId: "$userData._id"
+                //     }
+                // }
             ],
         }
+        console.log(arg.query[0].$match)
         let messageList_ = await genericFunctions._baseFetch(Message, arg, "Aggregate")
         console.log(messageList_)
         return messageList_.data
