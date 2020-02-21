@@ -52,7 +52,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/', express.static(`${__dirname}/../dist`));
+// app.use('/', express.static(`${__dirname}/../dist`));
 
 //https://youtu.be/bgq7FRSPDpI?t=1517
 
