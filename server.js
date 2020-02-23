@@ -20,7 +20,7 @@ const app = express();
 
 app.use(compression());
 app.use(bodyParser.json());
-app.use(isAuth);
+// app.use(isAuth);
 
 app.use(
     '/graphql', cors(), bodyParser.json(), (req, res) => {
