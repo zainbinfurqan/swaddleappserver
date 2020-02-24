@@ -100,8 +100,8 @@ module.exports = buildSchema(`
 
         type MessageListForUser{
             text:String!
-            userId: String!
             sendingTime: String!
+            senderRole:String!
         }
 
         type GetMessageList{
