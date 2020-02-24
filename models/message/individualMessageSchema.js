@@ -15,6 +15,10 @@ const individualMessageSchema = new Schema({
         type: String,
         required: true
     },
+    senderRole:{
+        type: String,
+        required: true
+    },
     sendingTime: {
         type: Date,
         default: Date.now

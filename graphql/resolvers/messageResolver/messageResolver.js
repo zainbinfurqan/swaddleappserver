@@ -22,14 +22,14 @@ if (args.messageInput.sendTo && args.messageInput.sendFrom && args.messageInput.
     if (args.messageInput.role == "patient") {
         Obj['userId'] = mongoose.Types.ObjectId(args.messageInput.sendFrom);
         Obj['practionerId'] = mongoose.Types.ObjectId(args.messageInput.sendTo);
-        Obj['senderRole'] = args.messageInput.role;
+        // Obj['senderRole'] = args.messageInput.role;
         Obj_['sendFrom'] = mongoose.Types.ObjectId(args.messageInput.sendFrom);
         Obj_['sendTo'] = mongoose.Types.ObjectId(args.messageInput.sendTo);
     }
     if (args.messageInput.role == "practioner") {
         Obj['userId'] = mongoose.Types.ObjectId(args.messageInput.sendTo)
         Obj['practionerId'] = mongoose.Types.ObjectId(args.messageInput.sendFrom)
-        Obj['senderRole'] =args.messageInput.role;
+        // Obj['senderRole'] =args.messageInput.role;
         Obj_['sendFrom'] = mongoose.Types.ObjectId(args.messageInput.sendFrom);
         Obj_['sendTo'] = mongoose.Types.ObjectId(args.messageInput.sendTo);
     }
@@ -38,6 +38,7 @@ if (args.messageInput.sendTo && args.messageInput.sendFrom && args.messageInput.
             // sendTo: mongoose.Types.ObjectId(args.messageInput.sendTo),
             // sendFrom: mongoose.Types.ObjectId(args.messageInput.sendFrom),
             text: args.messageInput.text,
+            senderRole: args.messageInput.role,
             ...Obj,
             ...Obj_
         }
