@@ -27,12 +27,17 @@ exports.creatAppointmentData = async (args, context) => {
 }
 
 exports.fetchAppoinmentData = async (args, context) => {
-    console.log("fetch")
-    let appointmentData = await genericFunctions._baseFetch(appointmentSchema, { query: {} })
-    console.log(appointmentData)
-    if (!appointmentData.status)
-        return []
-    return appointmentData.data
+    if (args.practionerId) {
+        let arg = {
+            query: {
+                practionerId: args.practionerId
+            }
+        }
+        let appointmentData = await genericFunctions._baseFetch(appointmentSchema, arg)
+        if (!appointmentData.status)
+            return []
+        return appointmentData.data
+    }
 
 }
 

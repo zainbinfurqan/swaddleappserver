@@ -200,7 +200,7 @@ module.exports = buildSchema(`
             searchCategory(search:String!): [CategoryFetch!]!
             getMessageList(loginUserId:String!): [GetMessageList]
             getparticularUserMessageList(practionerId: String!, userId:String!) : [MessageListForUser]
-            fetchAppoinmentData :[FetchAppoinmentData]!
+            fetchAppoinmentData(practionerId:String!) :[FetchAppoinmentData]!
         }
 
         type RootMutation {
