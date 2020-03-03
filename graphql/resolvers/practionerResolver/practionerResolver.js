@@ -9,12 +9,9 @@ let practionerSchema = require('../../../models/practioner/practionerSchema'),
 
 
 exports.fetchPactioner = async (args, context) => {
-
-    console.log(args.categoryId)
     let matchObj = {}
     if (args.categoryId)
         matchObj['categoryId'] = mongoose.Types.ObjectId(args.categoryId)
-
     let arg = {
         query: [
             {
@@ -54,39 +51,39 @@ exports.fetchPactioner = async (args, context) => {
     let practionerData = await genericFunctions._baseFetch(practionerSchema, arg,"Aggregate")
     console.log(practionerData, "s");
     return practionerData.data
-
-
-
 }
 
 
 exports.createPactionerProfile = async (args, context) => {
-
-    console.log(args)
-    
-
-
     let arg = {
         userId: mongoose.Types.ObjectId(args.createPractionerInput.userId),
-        address: args.createPractionerInput.address,
+        // address: args.createPractionerInput.address,
         categoryId: mongoose.Types.ObjectId(args.createPractionerInput.categoryId),
-        bio: args.createPractionerInput.bio,
-        website: args.createPractionerInput.website,
-        rate: args.createPractionerInput.rate,
-        feeDetails: args.createPractionerInput.feeDetails,
-        certification: args.createPractionerInput.certification,
-        training: args.createPractionerInput.training,
-        education: args.createPractionerInput.education,
-        specialServicesOffer: args.createPractionerInput.specialServicesOffer,
-        profession: args.createPractionerInput.profession,
+        NPInumber: args.createPractionerInput.NPInumber,
+        streetAddress: args.createPractionerInput.streetAddress,
+        city: args.createPractionerInput.city,
+        state: args.createPractionerInput.state,
+        zipCode: args.createPractionerInput.zipCode,
+        phoneNumber: args.createPractionerInput.phoneNumber,
+        organicationName: args.createPractionerInput.organicationName,
+        // profilePic: args.createPractionerInput.profilePic ? args.createPractionerInput.profilePic : {url:"https://raw.githubusercontent.com/zainbinfurqan/swaddleappserver/dev/uploads/default-avatar.png"},
+        profilePic:  "https://raw.githubusercontent.com/zainbinfurqan/swaddleappserver/dev/uploads/default-avatar.png",
+        Specialties: args.createPractionerInput.Specialties,
+        // bio: args.createPractionerInput.bio,
+        // website: args.createPractionerInput.website,
+        // rate: args.createPractionerInput.rate,
+        // feeDetails: args.createPractionerInput.feeDetails,
+        // certification: args.createPractionerInput.certification,
+        // training: args.createPractionerInput.training,
+        // education: args.createPractionerInput.education,
+        // specialServicesOffer: args.createPractionerInput.specialServicesOffer,
+        // profession: args.createPractionerInput.profession,
     }
-
     let practioner = await genericFunctions._basePost(practionerSchema, arg)
     if (!practioner.status) {
         return { status: false, statusCode: 203, message: practioner.error }
     }
     return { status: true, statusCode: 200, message: 'Profile Updated' }
-
 }
 
 

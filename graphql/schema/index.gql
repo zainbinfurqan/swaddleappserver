@@ -159,16 +159,15 @@ module.exports = buildSchema(`
 
         input CreatePractionerInput{
             userId:String!
-            address: String!
-            bio: String!
-            website: String!
-            rate: String!
-            feeDetails: String!
-            certification: [String]!
-            training: [String]!
-            education: [String]!
-            specialServicesOffer: String!
-            profession:[String]!
+            NPInumber: String!
+            streetAddress: String!
+            city: String!
+            state: String!
+            zipCode: String!
+            phoneNumber: String!
+            organicationName: String!
+            profilePic: [String]
+            Specialties:[String]!
             categoryId:String!
         }
 
